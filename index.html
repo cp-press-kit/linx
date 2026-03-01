@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Cemiyette Pişiyorum</title>
+    <!-- Favicon: favicon.ico veya favicon.png dosyanı aynı klasöre koy -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;700&display=swap');
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      background: #0d0d0d;
+    }
+
+    /* ─── Ana wrapper: 720x1280 oranını korur ─── */
+    .page-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 720px;
+      /* 720/1280 = 0.5625 oranı → padding-top: 177.77% tam sütun için */
+      /* Ama biz min-height kullanarak hem ratio hem scroll sağlayalım */
+      min-height: 100vh;
+      min-height: 100dvh;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ─── Arka plan görseli ─── */
+    .bg-layer {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 720px;
+      height: 100%;
+      background-image: url('bg.jpg');
+      /*background-image: 
+        linear-gradient(160deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #1a1a2e 100%); */
+
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      z-index: 0;
+    }
+
+    /* Görsel üstüne hafif overlay (isteğe bağlı, okunabilirlik için) */
+    .bg-layer::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.25);
+    }
+
+    /* ─── İçerik alanı ─── */
+    .content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 480px;
+      padding: 48px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* ─── Butonlar ─── */
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 16px 24px;
+      text-align: center;
+      text-decoration: none;
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid rgba(255, 255, 255, 0.18);
+      border-radius: 14px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      cursor: pointer;
+      transition: 
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
+
+      /* Staggered giriş animasyonu */
+      opacity: 0;
+      animation: slideUp 0.45s ease forwards;
+    }
+
+    .btn:nth-child(1)  { animation-delay: 0.05s; }
+    .btn:nth-child(2)  { animation-delay: 0.10s; }
+    .btn:nth-child(3)  { animation-delay: 0.15s; }
+    .btn:nth-child(4)  { animation-delay: 0.20s; }
+    .btn:nth-child(5)  { animation-delay: 0.25s; }
+    .btn:nth-child(6)  { animation-delay: 0.30s; }
+    .btn:nth-child(7)  { animation-delay: 0.35s; }
+    .btn:nth-child(8)  { animation-delay: 0.40s; }
+    .btn:nth-child(9)  { animation-delay: 0.45s; }
+    .btn:nth-child(10) { animation-delay: 0.50s; }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hover / active efektleri */
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      transform: translateY(-2px);
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    /* ─── Responsive: küçük ekranlarda padding ayarı ─── */
+    @media (max-width: 480px) {
+      .content {
+        padding: 32px 20px;
+        gap: 12px;
+      }
+      .btn {
+        font-size: 14px;
+        padding: 15px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Arka Plan Görseli -->
+  <!-- 
+    Kendi PNG görselini kullanmak için:
+    1. bg-layer'ın CSS'inde background-image satırını bul
+    2. url('arka-plan.png') olarak değiştir
+    Görsel 720x1280px olmalı, cover ile otomatik ölçeklenir.
+  -->
+  <div class="bg-layer"></div>
+
+  <!-- Sayfa İçeriği -->
+  <div class="page-wrapper">
+    <div class="content">
+
+      <!-- 
+        ██ LİNKLERİ DEĞİŞTİR ██
+        Her butonun href="" kısmına kendi linkinizi yazın.
+        Aynı sekmede açmak için target="_self" (varsayılan),
+        yeni sekmede açmak için target="_blank" kullanın.
+      -->
+
+      <a href="https://www.biletix.com/performance/5POE5/001/TURKIYE/tr" target="_blank" class="btn">İstanbul-Babylon / Biletix</a>
+      <a href="https://www.passo.com.tr/tr/etkinlik/cemiyette-pisiyorum-oncesi-deli-gomlegi-babylon-konser-etkinlik-bilet/10714322" target="_blank" class="btn">İstanbul-Babylon / Passo</a>
+      <a href="https://www.bubilet.com.tr/istanbul/etkinlik/cemiyette-pisiyorum-oncesi-deli-gomlegi" target="_blank" class="btn">İstanbul-Babylon / Bubilet</a>
+      <a href="https://www.biletix.com/etkinlik/5HM95/TURKIYE/tr" target="_blank" class="btn">Ankara-6:45 / Biletix</a>
+      <a href="https://www.bubilet.com.tr/ankara/etkinlik/cemiyette-pisiyorum-konseri" target="_blank" class="btn">Ankara-6:45 / Bubilet</a>
+      <a href="https://biletinial.com/tr-tr/muzik/cemiyette-pisiyorum" target="_blank" class="btn">Ankara-6:45 / Biletinial</a>
+      <a href="https://biletino.com/tr/e-19hc/cemiyette-pisiyorum/" target="_blank" class="btn">Ankara-6:45 / Biletino</a>
+      <a href="https://music.youtube.com/playlist?list=OLAK5uy_lpK-3dca_HgZFaRb967JQPytWBOzUE5-g" target="_blank" class="btn">ENDÜSTRİ / YouTube Music</a>
+      <a href="https://open.spotify.com/album/0vIU5tbxDBuosN9LzsN3wd" target="_blank" class="btn">ENDÜSTRİ / Spotify</a>
+
+    </div>
+  </div>
+
+</body>
+</html>
